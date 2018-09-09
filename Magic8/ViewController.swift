@@ -10,9 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var answerIndex: Int = 0
+    let answers = ["Ball1", "Ball2", "Ball3", "Ball4", "Ball5"]
+    
+    @IBOutlet weak var answerBall: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        askAnswer()
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +25,18 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    fileprivate func askAnswer() {
+        answerIndex = Int(arc4random_uniform(5))
+        //print(answerIndex)
+        answerBall.image = UIImage(named: answers[answerIndex])
+    }
+    
+    @IBAction func askButtonPressed(_ sender: Any) {
+        askAnswer()
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        askAnswer()
+    }
 }
 
